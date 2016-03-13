@@ -14,6 +14,8 @@ def crawler(url)
 			required_link.push(link)
 		end
 	end
+	required_link.each { |link| p link}
 end
 
-crawler("https://en.wikipedia.org/wiki/Computer_science")
+#crawler("https://en.wikipedia.org/wiki/Computer_science")
+crawler(ARGV[0])
