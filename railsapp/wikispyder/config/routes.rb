@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
 
-  # get 'static/index'
   devise_for :users
 
+  mount Commontator::Engine => '/commontator'
+
   root to: "static#index"
+
+  resources :feeds
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

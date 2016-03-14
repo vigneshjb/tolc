@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Feeds</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Up vote count</th>
+      <th>Down vote count</th>
+      <th>Feed type</th>
+      <th>Feed content</th>
+      <th>Interest</th>
+      <th>.. </th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @feeds.each do |feed| %>
+      <tr>
+        <td><%= feed.user_id %></td>
+        <td><%= feed.up_vote_count %></td>
+        <td><%= feed.down_vote_count %></td>
+        <td><%= feed.feed_type %></td>
+        <td><%= feed.feed_content %></td>
+        <td><%= feed.interest %></td>
+        <td>'1'<%= commontator_thread(feed) %></td>
+        <td><%= link_to 'Show', feed %></td>
+        <td><%= link_to 'Edit', edit_feed_path(feed) %></td>
+        <td><%= link_to 'Destroy', feed, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Feed', new_feed_path %>

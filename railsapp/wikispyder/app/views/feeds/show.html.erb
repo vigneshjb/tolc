@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @feed.user_id %>
+</p>
+
+<p>
+  <strong>Up vote count:</strong>
+  <%= @feed.up_vote_count %>
+</p>
+
+<p>
+  <strong>Down vote count:</strong>
+  <%= @feed.down_vote_count %>
+</p>
+
+<p>
+  <strong>Feed type:</strong>
+  <%= @feed.feed_type %>
+</p>
+
+<p>
+  <strong>Feed content:</strong>
+  <%= @feed.feed_content %>
+</p>
+
+<p>
+  <strong>Interest:</strong>
+  <%= @feed.interest %>
+</p>
+
+<%= link_to 'Edit', edit_feed_path(@feed) %> |
+<%= link_to 'Back', feeds_path %>

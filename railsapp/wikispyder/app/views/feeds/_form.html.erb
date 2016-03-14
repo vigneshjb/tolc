@@ -1,0 +1,41 @@
+<%= form_for(@feed) do |f| %>
+  <% if @feed.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@feed.errors.count, "error") %> prohibited this feed from being saved:</h2>
+
+      <ul>
+      <% @feed.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :up_vote_count %><br>
+    <%= f.number_field :up_vote_count %>
+  </div>
+  <div class="field">
+    <%= f.label :down_vote_count %><br>
+    <%= f.number_field :down_vote_count %>
+  </div>
+  <div class="field">
+    <%= f.label :feed_type %><br>
+    <%= f.text_field :feed_type %>
+  </div>
+  <div class="field">
+    <%= f.label :feed_content %><br>
+    <%= f.text_field :feed_content %>
+  </div>
+  <div class="field">
+    <%= f.label :interest %><br>
+    <%= f.number_field :interest %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

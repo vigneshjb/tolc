@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  up_vote_count: 1
+  down_vote_count: 1
+  feed_type: MyString
+  feed_content: MyString
+  interest: 1
+
+two:
+  user_id: 1
+  up_vote_count: 1
+  down_vote_count: 1
+  feed_type: MyString
+  feed_content: MyString
+  interest: 1
