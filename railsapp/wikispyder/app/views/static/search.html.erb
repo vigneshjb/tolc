@@ -1,0 +1,16 @@
+
+<h1> Search your WIKI here </h1>
+
+<div class="field">
+	<%= text_field_tag 'search-query'%>
+</div>
+<div class="field">
+	<%=button_tag 'search Wiki', :type=>'button', :id=>"run-Crawler" %>
+</div>
+
+<%= javascript_tag do %>
+	$("#run-Crawler").click(function(){
+		var search_query = $("#search-query").val();
+		console.log(search_query + " Vignesh Got it right !!");
+	});
+<% end %>

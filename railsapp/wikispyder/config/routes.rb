@@ -1,10 +1,17 @@
 Rails.application.routes.draw do
 
+  # paths from gems
+
   devise_for :users, controllers: { registrations: "users/registrations" }
 
   mount Commontator::Engine => '/commontator'
 
+  # other custom paths
+
   root to: "static#index"
+  get 'search' => "static#search"
+
+  # resources
 
   resources :feeds
   
