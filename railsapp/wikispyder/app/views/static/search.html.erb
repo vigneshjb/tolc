@@ -31,6 +31,10 @@
 		search_by_name(name);
 	};
 
+	post_search_chain = function(){
+		console.log("Need to continue working here, I have the search chain, i need to create a controller method to accept that and create a feed");
+	}
+
 	search_by_name = function(search_query){
 		$.get(
 			"/proxy",
@@ -49,8 +53,12 @@
 
 	$("#run-Crawler").click(function(){
 		var search_query = $("#search-query").val();
+		if (SEARCH_CHAIN.length > 0){
+			post_search_chain();
+			SEARCH_CHAIN = [];
+		}
 		SEARCH_CHAIN = SEARCH_CHAIN.concat([search_query]);
 		search_by_name(search_query.split(' ').join('+'));
 	});
-	
+
 <% end %>
