@@ -16,6 +16,12 @@
 <iframe id="main_page">
 </iframe>
 
+<br><br><br><br><br>
+
+<div class="field">
+	<%=button_tag 'Request Edit', :type=>'button', :id=>"request-edit" %>
+</div>
+
 <%= javascript_tag do %>
 
 	var SEARCH_CHAIN;
@@ -39,7 +45,7 @@
 			data: JSON.stringify({feed: {user_id: "<%=user_signed_in?? current_user.id : "0"%>", "up_vote_count":"0", "down_vote_count":"0", "feed_type":"view", "feed_content":SEARCH_CHAIN.toString(), "interest":"0"}}),
 			contentType:"application/json; charset=utf-8",
 			success: function(){
-				console.log( "feed created" );
+				console.log( "view feed created" );
 			}
 		});
 	}
@@ -60,8 +66,29 @@
 		);
 	};
 
+	$("#request-edit").click(function(){
+		page = $("#search-query").val().trim();
+		if (page.length<1){
+			console.log("No page to make request");
+			return;
+		}
+		$.ajax({
+			url: "feeds/",
+			type: "POST",
+			data: JSON.stringify({feed: {user_id: "<%=user_signed_in?? current_user.id : "0"%>", "up_vote_count":"0", "down_vote_count":"0", "feed_type":"request_edit", "feed_content":page, "interest":"0"}}),
+			contentType:"application/json; charset=utf-8",
+			success: function(){
+				console.log( "request feed created" );
+			}
+		});
+	});
+
 	$("#run-Crawler").click(function(){
 		var search_query = $("#search-query").val();
+		if (search_query.length<1){
+			console.log("No title to search");
+			return;
+		}
 		if (SEARCH_CHAIN.length > 0){
 			post_search_chain();
 			SEARCH_CHAIN = [];
