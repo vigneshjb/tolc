@@ -17,19 +17,11 @@
 		var search_query = $("#search-query").val().split(' ').join('+');
 
 		$.get(
-		"/proxy",
-		{method : 1, data : search_query},
-		function(result) {
-			data = JSON.parse(result);
-			var results = [];
-			$.each(data.query.pages, function(item){
-				results = results.concat(this.fullurl);
-			});
-			$.each(results, function(){
-				$("#search-result").append(this);
-			});
-		}
+			"/proxy",
+			{method : 1, data : search_query},
+			function(result) {
+				$("#search-result").val(result);
+			}
 		);
-
 	});
 <% end %>
