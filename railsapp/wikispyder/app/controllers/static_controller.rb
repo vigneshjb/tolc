@@ -11,8 +11,8 @@ class StaticController < ApplicationController
   	url = params[:method] == "1" ? "https://en.wikipedia.org/w/api.php?action=query&"+
   									"format=json&prop=info&inprop=url&titles="+params[:data] : ""
 
-  	response = StaticHelper.make_request(url)
-	render :text => StaticHelper.crawler(StaticHelper.getfullurl(response))
+  	full_url = StaticHelper.getfullurl(StaticHelper.make_request(url))
+	render :json => {"links" => StaticHelper.crawler(full_url), "page_url"=>full_url}
   end
 
 end

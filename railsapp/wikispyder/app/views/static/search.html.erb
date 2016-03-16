@@ -8,9 +8,13 @@
 	<%=button_tag 'search Wiki', :type=>'button', :id=>"run-Crawler" %>
 </div>
 
-<div class="field">
-	<%= text_area_tag 'search-result'%>
+<div id="related_pages">
 </div>
+
+<br><br><br><br><br><br><br><br><br><br>
+
+<iframe id="main_page">
+</iframe>
 
 <%= javascript_tag do %>
 	$("#run-Crawler").click(function(){
@@ -20,7 +24,12 @@
 			"/proxy",
 			{method : 1, data : search_query},
 			function(result) {
-				$("#search-result").val(result);
+				$("#related_pages").empty();
+				links_items = result.links;
+				$("#main_page").attr("src",result.page_url);
+				$.each(links_items, function(){
+					$("#related_pages").append('<a href=\"'+this+'\">'+this+'</a><br>')
+				});
 			}
 		);
 	});

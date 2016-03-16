@@ -25,11 +25,11 @@ module StaticHelper
 		required_link = []
 		all_links.delete("#")
 		all_links.each_with_index do |link, index| 
-			if (link!=nil && !link.start_with?("#"))
-				required_link.push(link)
+			if (link!=nil && !link.start_with?("/wiki/File:") && link.index(':') == nil && link.start_with?("/wiki/"))
+				required_link.push("https://en.wikipedia.org" + link)
 			end
 		end
-		return required_link
+		return required_link[50..100]
 	end
 
 end
