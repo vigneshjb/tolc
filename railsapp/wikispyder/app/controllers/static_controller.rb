@@ -8,8 +8,8 @@ class StaticController < ApplicationController
   end
 
   def proxy
-  	url = params[:method] == "1" ? "https://en.wikipedia.org/w/api.php?action=query&"+
-  									"format=json&prop=info&inprop=url&titles="+params[:data] : ""
+  	url = "https://en.wikipedia.org/w/api.php?action=query&"+
+  		  "format=json&prop=info&inprop=url&titles="+params[:data]
 
   	full_url = StaticHelper.getfullurl(StaticHelper.make_request(url))
 	render :json => {"links" => StaticHelper.crawler(full_url), "page_url"=>full_url}

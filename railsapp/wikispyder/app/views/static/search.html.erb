@@ -11,26 +11,46 @@
 <div id="related_pages">
 </div>
 
-<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br>
 
 <iframe id="main_page">
 </iframe>
 
 <%= javascript_tag do %>
-	$("#run-Crawler").click(function(){
-		var search_query = $("#search-query").val().split(' ').join('+');
 
+	var SEARCH_CHAIN;
+
+	$(document).ready(function(){
+		SEARCH_CHAIN = [];
+	});
+	
+	tracked_viewer = function(name){
+		var name_with_space = name.split("+").join(" ");
+		SEARCH_CHAIN = SEARCH_CHAIN.concat([name_with_space]);
+		$("#search-query").val(name_with_space);
+		search_by_name(name);
+	};
+
+	search_by_name = function(search_query){
 		$.get(
 			"/proxy",
-			{method : 1, data : search_query},
+			{data : search_query},
 			function(result) {
 				$("#related_pages").empty();
 				links_items = result.links;
 				$("#main_page").attr("src",result.page_url);
 				$.each(links_items, function(){
-					$("#related_pages").append('<a href=\"'+this+'\">'+this+'</a><br>')
+					name = this.substr(30, this.length).split("_").join(" ")
+					$("#related_pages").append('<a href=\"#\" onclick=\'tracked_viewer(\"'+name+'\")\'>'+name+'</a><br>')
 				});
 			}
 		);
+	};
+
+	$("#run-Crawler").click(function(){
+		var search_query = $("#search-query").val();
+		SEARCH_CHAIN = SEARCH_CHAIN.concat([search_query]);
+		search_by_name(search_query.split(' ').join('+'));
 	});
+	
 <% end %>
