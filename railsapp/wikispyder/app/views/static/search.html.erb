@@ -32,7 +32,16 @@
 	};
 
 	post_search_chain = function(){
-		console.log("Need to continue working here, I have the search chain, i need to create a controller method to accept that and create a feed");
+
+		$.ajax({
+			url: "feeds/",
+			type: "POST",
+			data: JSON.stringify({feed: {user_id: "<%=user_signed_in?? current_user.id : "0"%>", "up_vote_count":"0", "down_vote_count":"0", "feed_type":"view", "feed_content":SEARCH_CHAIN.toString(), "interest":"0"}}),
+			contentType:"application/json; charset=utf-8",
+			success: function(){
+				console.log( "feed created" );
+			}
+		});
 	}
 
 	search_by_name = function(search_query){
