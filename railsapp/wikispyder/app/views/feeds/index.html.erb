@@ -12,7 +12,7 @@
       <th>Feed content</th>
       <th>Interest</th>
       <th>.. </th>
-      <th colspan="3"></th>
+      <th colspan="5"></th>
     </tr>
   </thead>
 
@@ -29,6 +29,8 @@
         <td><%= link_to 'Show', feed %></td>
         <td><%= link_to 'Edit', edit_feed_path(feed) %></td>
         <td><%= link_to 'Destroy', feed, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Upvote Feed',"#", :onclick=>"upvote(#{feed.id})"%>
+        <td><%= link_to 'Downvote Feed',"#", :onclick=>"downvote(#{feed.id})"%>
       </tr>
     <% end %>
   </tbody>
@@ -37,3 +39,41 @@
 <br>
 
 <%= link_to 'New Feed', new_feed_path %>
+
+<%= javascript_tag do %>
+  upvote = function(id){
+    var userid = <%=user_signed_in?? current_user.id : 0%>;
+    if (userid > 0) {
+      $.ajax({
+        url: "feeds/"+id+"/upvote",
+        type: "GET",
+        success: function(){
+          console.log( "feed upvoted" );
+          location.reload();
+        }
+      });
+    }
+    else {
+      console.log("upvote feed cannot be done because user is not logged in");
+    }
+  }
+
+
+  downvote = function(id){
+    var userid = <%=user_signed_in?? current_user.id : 0%>;
+    if (userid > 0) {
+      $.ajax({
+        url: "feeds/"+id+"/downvote",
+        type: "GET",
+        success: function(){
+          console.log( "feed downvoted" );
+          location.reload();
+        }
+      });
+    }
+    else {
+      console.log("downvote feed cannot be done because user is not logged in");
+    }
+  }
+
+<% end %>

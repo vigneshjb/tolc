@@ -29,7 +29,14 @@ module StaticHelper
 				required_link.push("https://en.wikipedia.org" + link)
 			end
 		end
-		return required_link[50..100]
+
+		if(required_link.length()>80) 
+			retdata=required_link[50..100] 
+		else 
+			retdata=required_link
+		end
+
+		return retdata
 	end
 
 end

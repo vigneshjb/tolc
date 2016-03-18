@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   get 'search' => "static#search"
   get 'proxy' => "static#proxy"
 
+  get 'feeds/:id/upvote' => "feeds#upvote"
+  get 'feeds/:id/downvote' => "feeds#downvote"
+
   # resources
 
   resources :feeds

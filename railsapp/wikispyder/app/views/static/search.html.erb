@@ -26,10 +26,12 @@
 
 	var SEARCH_CHAIN;
 
+	// ****************** INIT the SEARCH_CHAIN TO HAVE NOTHING AT PAGE LOAD **********************
 	$(document).ready(function(){
 		SEARCH_CHAIN = [];
 	});
 	
+	// ****************** FUNCTION THAT GETS INVOKED WHEN A PAGE FROM THE SEARCH RESULTS IS CLICKED **********************
 	tracked_viewer = function(name){
 		var name_with_space = name.split("+").join(" ");
 		SEARCH_CHAIN = SEARCH_CHAIN.concat([name_with_space]);
@@ -37,19 +39,30 @@
 		search_by_name(name);
 	};
 
+	// ****************** CREATE A VIEW FEED ENTRY INVOKED BY OTHER METHODS **********************
 	post_search_chain = function(){
 
-		$.ajax({
-			url: "feeds/",
-			type: "POST",
-			data: JSON.stringify({feed: {user_id: "<%=user_signed_in?? current_user.id : "0"%>", "up_vote_count":"0", "down_vote_count":"0", "feed_type":"view", "feed_content":SEARCH_CHAIN.toString(), "interest":"0"}}),
-			contentType:"application/json; charset=utf-8",
-			success: function(){
-				console.log( "view feed created" );
-			}
-		});
+		var userid = <%=user_signed_in?? current_user.id : 0%>;
+		var userint = <%=user_signed_in?? current_user.interest : 0%>;
+
+		if (userid > 0) {
+			$.ajax({
+				url: "feeds/",
+				type: "POST",
+				data: JSON.stringify({feed: {user_id: userid, "up_vote_count":"0", "down_vote_count":"0", "feed_type":"view", 
+											"feed_content":SEARCH_CHAIN.toString(), "interest": userint}}),
+				contentType:"application/json; charset=utf-8",
+				success: function(){
+					console.log( "view feed created" );
+				}
+			});
+		}
+		else {
+			console.log("Cannot create user view feed because user not logged in.")
+		}
 	}
 
+	// ****************** THE LOGIC THAT SEND THE QUERY AND GETS THE LIST OF URLS BACK  **********************
 	search_by_name = function(search_query){
 		$.get(
 			"/proxy",
@@ -66,23 +79,34 @@
 		);
 	};
 
+	// ****************** METHOD INVOKED WHEN REQUEST A PAGE EDIT BUTTON IS CLICKED **********************
 	$("#request-edit").click(function(){
-		page = $("#search-query").val().trim();
+		var page = $("#search-query").val().trim();
+		var userid = <%=user_signed_in?? current_user.id : 0%>;
+		var userint = <%=user_signed_in?? current_user.interest : 0%>;
+
 		if (page.length<1){
 			console.log("No page to make request");
 			return;
 		}
-		$.ajax({
-			url: "feeds/",
-			type: "POST",
-			data: JSON.stringify({feed: {user_id: "<%=user_signed_in?? current_user.id : "0"%>", "up_vote_count":"0", "down_vote_count":"0", "feed_type":"request_edit", "feed_content":page, "interest":"0"}}),
-			contentType:"application/json; charset=utf-8",
-			success: function(){
-				console.log( "request feed created" );
-			}
-		});
+		if (userid > 0) {
+			$.ajax({
+				url: "feeds/",
+				type: "POST",
+				data: JSON.stringify({feed: {user_id: userid, "up_vote_count":"0", "down_vote_count":"0", "feed_type":"request_edit", 
+											"feed_content":page, "interest": userint}}),
+				contentType:"application/json; charset=utf-8",
+				success: function(){
+					console.log( "request feed created" );
+				}
+			});
+		}
+		else {
+			console.log("request feed cannot be created because user is not logged in");
+		}
 	});
 
+	// ****************** START OF THE SEARCH HAPPENS HERE, INVOKED ON THE CLICK OF THE SEARCH WIKI BUTTON **********************
 	$("#run-Crawler").click(function(){
 		var search_query = $("#search-query").val();
 		if (search_query.length<1){

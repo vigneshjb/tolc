@@ -1,10 +1,11 @@
 class FeedsController < ApplicationController
-  before_action :set_feed, only: [:show, :edit, :update, :destroy]
+  before_action :set_feed, only: [:show, :edit, :update, :destroy, :upvote, :downvote]
+  before_action :chk_usr_login, only: [:index]
 
   # GET /feeds
   # GET /feeds.json
   def index
-    @feeds = Feed.all
+    @feeds = Feed.where("interest"=>current_user.interest)
   end
 
   # GET /feeds/1
@@ -19,6 +20,26 @@ class FeedsController < ApplicationController
 
   # GET /feeds/1/edit
   def edit
+  end
+
+  #GET /feeds/1/upvote
+  def upvote
+    @feed.up_vote_count = @feed.up_vote_count+1
+    if @feed.save 
+        render :text => "Upvote saved"
+    else
+        render :text => "Upvote failed"
+    end
+  end
+
+  #GET /feeds/1/downvote
+  def downvote
+    @feed.down_vote_count = @feed.down_vote_count+1
+    if @feed.save 
+        render :text => "Downvote saved"
+    else
+        render :text => "Downvote failed"
+    end
   end
 
   # POST /feeds
@@ -69,5 +90,12 @@ class FeedsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def feed_params
       params.require(:feed).permit(:user_id, :up_vote_count, :down_vote_count, :feed_type, :feed_content, :interest)
+    end
+
+    #chk for login 
+    def chk_usr_login
+      if !user_signed_in?
+        redirect_to root_path
+      end
     end
 end
