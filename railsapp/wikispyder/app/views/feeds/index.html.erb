@@ -41,6 +41,7 @@
 <%= link_to 'New Feed', new_feed_path %>
 
 <%= javascript_tag do %>
+// to up vote a feed item
   upvote = function(id){
     var userid = <%=user_signed_in?? current_user.id : 0%>;
     if (userid > 0) {
@@ -58,7 +59,7 @@
     }
   }
 
-
+  // to down vote a feed item
   downvote = function(id){
     var userid = <%=user_signed_in?? current_user.id : 0%>;
     if (userid > 0) {

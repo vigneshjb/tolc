@@ -22,6 +22,15 @@
 	<%=button_tag 'Request Edit', :type=>'button', :id=>"request-edit" %>
 </div>
 
+<br><br><br><br><br>
+
+<div class="field">
+	<%=text_area_tag "edit-content" %>
+</div>
+<div class="field">
+	<%=button_tag 'Submit Edit', :type=>'button', :id=>"submit-edit" %>
+</div>
+
 <%= javascript_tag do %>
 
 	var SEARCH_CHAIN;
@@ -78,6 +87,35 @@
 			}
 		);
 	};
+
+	$("#submit-edit").click(function(){
+		var page = $("#search-query").val().trim();
+		var userid = <%=user_signed_in?? current_user.id : 0%>;
+		var userint = <%=user_signed_in?? current_user.interest : 0%>;
+		var content = $("#edit-content").val().trim();
+
+		if (page.length<1){
+			console.log("No page to make request");
+			return;
+		}
+
+		if (userid > 0) {
+			$.ajax({
+				url: "feeds/",
+				type: "POST",
+				data: JSON.stringify({feed: {user_id: userid, "up_vote_count":"0", "down_vote_count":"0", "feed_type":"submit_edit", 
+											"feed_content":JSON.stringify({"page:":page, "content":content}), "interest": userint}}),
+				contentType:"application/json; charset=utf-8",
+				success: function(){
+					console.log( "submit edit feed created" );
+				}
+			});
+		}
+		else {
+			console.log("submit edit feed cannot be created because user is not logged in");
+		}
+
+	});
 
 	// ****************** METHOD INVOKED WHEN REQUEST A PAGE EDIT BUTTON IS CLICKED **********************
 	$("#request-edit").click(function(){
