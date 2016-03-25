@@ -62,12 +62,12 @@
 											"feed_content":SEARCH_CHAIN.toString(), "interest": userint}}),
 				contentType:"application/json; charset=utf-8",
 				success: function(){
-					console.log( "view feed created" );
+					show_notification( "view feed created" );
 				}
 			});
 		}
 		else {
-			console.log("Cannot create user view feed because user not logged in.")
+			show_notification("Cannot create user view feed because user not logged in.")
 		}
 	}
 
@@ -88,6 +88,11 @@
 		);
 	};
 
+	show_notification = function(message){
+		$("#notice").text(message);
+		$("#notice").show().delay(5000).fadeOut();
+	}
+
 	$("#submit-edit").click(function(){
 		var page = $("#search-query").val().trim();
 		var userid = <%=user_signed_in?? current_user.id : 0%>;
@@ -107,12 +112,12 @@
 											"feed_content":JSON.stringify({"page:":page, "content":content}), "interest": userint}}),
 				contentType:"application/json; charset=utf-8",
 				success: function(){
-					console.log( "submit edit feed created" );
+					show_notification( "submit edit feed created" );
 				}
 			});
 		}
 		else {
-			console.log("submit edit feed cannot be created because user is not logged in");
+			show_notification("submit edit feed cannot be created because user is not logged in");
 		}
 
 	});
@@ -135,12 +140,12 @@
 											"feed_content":page, "interest": userint}}),
 				contentType:"application/json; charset=utf-8",
 				success: function(){
-					console.log( "request feed created" );
+					show_notification( "request feed created" );
 				}
 			});
 		}
 		else {
-			console.log("request feed cannot be created because user is not logged in");
+			show_notification("request feed cannot be created because user is not logged in");
 		}
 	});
 
