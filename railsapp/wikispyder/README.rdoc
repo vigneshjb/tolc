@@ -1,5 +1,16 @@
 == README
 
+Running the server
+* install ruby
+* install rails 
+* download the code base from git@github.com/vigneshjb/tolc.got
+* enter into the "wikispyder" directory in the downloaded code base
+* run the command "bundle install " -- make it to go to success -- install all the required packages
+* run the command  "rake db:create" followed "rake db:migrate" -- create database and add the tables
+* run the command "rails s" - start the server on port 3000
+* access ther web app on localhost:3000
+
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
