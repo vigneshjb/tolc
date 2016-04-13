@@ -1,3 +1,5 @@
+<div class="row">
+        <div class="col-md-3">
 <%= form_for(@feed) do |f| %>
   <% if @feed.errors.any? %>
     <div id="error_explanation">
@@ -13,29 +15,31 @@
 
   <div class="field">
     <%= f.label :user_id %><br>
-    <%= f.number_field :user_id %>
+    <%= f.number_field :user_id, class: 'form-control' %>
   </div>
   <div class="field">
     <%= f.label :up_vote_count %><br>
-    <%= f.number_field :up_vote_count %>
+    <%= f.number_field :up_vote_count, class: 'form-control' %>
   </div>
   <div class="field">
     <%= f.label :down_vote_count %><br>
-    <%= f.number_field :down_vote_count %>
+    <%= f.number_field :down_vote_count, class: 'form-control' %>
   </div>
   <div class="field">
     <%= f.label :feed_type %><br>
-    <%= f.text_field :feed_type %>
+    <%= f.text_field :feed_type, class: 'form-control' %>
   </div>
   <div class="field">
     <%= f.label :feed_content %><br>
-    <%= f.text_field :feed_content %>
+    <%= f.text_field :feed_content, class: 'form-control' %>
   </div>
   <div class="field">
     <%= f.label :interest %><br>
-    <%= f.number_field :interest %>
+    <%= f.number_field :interest, class: 'form-control' %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>
+</div>
+</div>

@@ -1,34 +1,38 @@
+<% provide(:title, "Search Wiki") %>
 
-<h1> Search your WIKI here </h1>
+<div class="row">
+        <div class="col-md-6 col-md-offset-3">
+                <h1>Search my Wiki</h1>
+        </div>
+</div>
+
+<div class="row">
+        <div class="col-md-6 col-md-offset-3">
 
 <div class="field">
-	<%= text_field_tag 'search-query'%>
+	<%= text_field_tag 'search-query' %>
 </div>
 <div class="field">
-	<%=button_tag 'search Wiki', :type=>'button', :id=>"run-Crawler" %>
+	<%=button_tag 'search Wiki', :type=>'button', :id=>"run-Crawler", class: "btn btn-primary" %>
 </div>
 
 <div id="related_pages">
 </div>
 
-<br><br><br><br><br>
-
 <iframe id="main_page">
 </iframe>
 
-<br><br><br><br><br>
-
 <div class="field">
-	<%=button_tag 'Request Edit', :type=>'button', :id=>"request-edit" %>
+	<%=button_tag 'Request Edit', :type=>'button', :id=>"request-edit", class: "btn btn-primary" %>
 </div>
 
-<br><br><br><br><br>
-
 <div class="field">
-	<%=text_area_tag "edit-content" %>
+	<%=text_area_tag "edit-content"  %>
 </div>
 <div class="field">
-	<%=button_tag 'Submit Edit', :type=>'button', :id=>"submit-edit" %>
+	<%=button_tag 'Submit Edit', :type=>'button', :id=>"submit-edit", class: "btn btn-primary" %>
+</div>
+</div>
 </div>
 
 <%= javascript_tag do %>
