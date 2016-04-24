@@ -14,10 +14,12 @@
 		</div>
 	   <ul class="nav navbar-nav navbar-right">
 		 <% if user_signed_in? %>
-		 	<li><%= current_user.name %></li>
+		 	<li><%= link_to "Dashboard", feeds_path %></li>
+		 	<li><%= link_to "Wiki Search", search_path %></li>
+		 	<li><%= link_to current_user.name %></li>
 			<li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
 		<% else %>
-			<li><%= link_to "Sign in", new_user_session_path %></li>	
+			<li><%= link_to "Sign in", new_user_session_path %></li>
 			<li><%= link_to "Sign up", new_user_registration_path %></li>
 		<% end %>
 	   </ul>
@@ -29,19 +31,19 @@
 	  <%= yield %>
 	</div>
 	
-<% if false %>
-	<% if user_signed_in? %>
-		<%= current_user.name %>
-		<%= link_to "Sign out", destroy_user_session_path, :method => :delete %> <br />
-	<% else %>
-		<%= link_to "Sign in", new_user_session_path %>
-		<%= link_to "Sign up", new_user_registration_path %><br />
-	<% end %>
+    <% if false %>
+        <% if user_signed_in? %>
+            <%= current_user.name %>
+            <%= link_to "Sign out", destroy_user_session_path, :method => :delete %> <br />
+        <% else %>
+            <%= link_to "Sign in", new_user_session_path %>
+            <%= link_to "Sign up", new_user_registration_path %><br />
+        <% end %>
 
-	<p id="notice"><%= notice %></p>
+        <p id="notice"><%= notice %></p>
 
-<%= yield %>
-<% end %>
+    <%= yield %>
+    <% end %>
 
 </body>
 </html>

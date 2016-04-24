@@ -7,32 +7,31 @@
 </div>
 
 <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="field">
+            <%= text_field_tag 'search-query' %>
+        </div>
+        <div class="field">
+            <%=button_tag 'search Wiki', :type=>'button', :id=>"run-Crawler", class: "btn btn-primary" %>
+        </div>
 
-<div class="field">
-	<%= text_field_tag 'search-query' %>
-</div>
-<div class="field">
-	<%=button_tag 'search Wiki', :type=>'button', :id=>"run-Crawler", class: "btn btn-primary" %>
-</div>
+        <div id="related_pages">
+        </div>
 
-<div id="related_pages">
-</div>
+        <iframe id="main_page" width="500" height="500">
+        </iframe>
 
-<iframe id="main_page">
-</iframe>
+        <div class="field">
+            <%=button_tag 'Request Edit', :type=>'button', :id=>"request-edit", class: "btn btn-primary" %>
+        </div>
 
-<div class="field">
-	<%=button_tag 'Request Edit', :type=>'button', :id=>"request-edit", class: "btn btn-primary" %>
-</div>
-
-<div class="field">
-	<%=text_area_tag "edit-content"  %>
-</div>
-<div class="field">
-	<%=button_tag 'Submit Edit', :type=>'button', :id=>"submit-edit", class: "btn btn-primary" %>
-</div>
-</div>
+        <div class="field">
+            <%=text_area_tag "edit-content"  %>
+        </div>
+        <div class="field">
+            <%=button_tag 'Submit Edit', :type=>'button', :id=>"submit-edit", class: "btn btn-primary" %>
+        </div>
+    </div>
 </div>
 
 <%= javascript_tag do %>

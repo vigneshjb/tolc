@@ -29,6 +29,9 @@ gem 'commontator'
 
 gem 'nokogiri'
 
+gem 'tzinfo-data'
+gem 'tzinfo'
+
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 
