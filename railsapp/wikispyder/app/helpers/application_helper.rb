@@ -1,5 +1,8 @@
 module ApplicationHelper
 
+  INTEREST_HASH = { 1=>"Computer Science", 2=>"Sanskrit", 3=>"Mathematics", 4=>"Zoology", 5=>"History" }
+  HASH_INTEREST = { "Computer Science"=>1, "Sanskrit"=>2, "Mathematics"=>3, "Zoology"=>4, "History"=>5 }
+
   # Returns the full title on a per-page basis.       # Documentation comment
   def full_title(page_title = '')                     # Method def, optional arg
     base_title = "WikiSpyder"                         # Variable assignment

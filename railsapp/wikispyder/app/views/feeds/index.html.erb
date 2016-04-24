@@ -28,7 +28,7 @@
         <td><%= feed.down_vote_count %></td>
         <td><%= feed.feed_type %></td>
         <td><%= feed.feed_content %></td>
-        <td><%= feed.interest %></td>
+        <td><%= ApplicationHelper::INTEREST_HASH[feed.interest] %></td>
         <td><%= commontator_thread(feed) %></td>
         <td><%= link_to 'Show', feed %></td>
         <td><%= link_to 'Edit', edit_feed_path(feed) %></td>

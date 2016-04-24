@@ -23,7 +23,7 @@
 
 	<div class="field">
 		<%= f.label :interest %><br />
-		<%= f.text_field :interest, class: 'form-control'%>
+		<%= select_tag :interest_array, options_for_select(ApplicationHelper::HASH_INTEREST), :multiple => true %>
 	</div>
 	
 	<div class="field">
