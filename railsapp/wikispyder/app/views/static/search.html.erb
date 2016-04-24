@@ -8,6 +8,10 @@
 
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
+    	<div class="field">
+    		Select Interest
+    		<%= select_tag :interest, options_for_select(StaticHelper.hash_interest(current_user)) %>
+    	</div>
         <div class="field">
             <%= text_field_tag 'search-query' %>
         </div>
@@ -37,16 +41,19 @@
 <%= javascript_tag do %>
 
 	var SEARCH_CHAIN;
+	var SEARCH_INEREST;
 
 	// ****************** INIT the SEARCH_CHAIN TO HAVE NOTHING AT PAGE LOAD **********************
 	$(document).ready(function(){
 		SEARCH_CHAIN = [];
+		SEARCH_INEREST = 0;
 	});
 	
 	// ****************** FUNCTION THAT GETS INVOKED WHEN A PAGE FROM THE SEARCH RESULTS IS CLICKED **********************
 	tracked_viewer = function(name){
 		var name_with_space = name.split("+").join(" ");
 		SEARCH_CHAIN = SEARCH_CHAIN.concat([name_with_space]);
+		SEARCH_INEREST = $("#interest").val();
 		$("#search-query").val(name_with_space);
 		search_by_name(name);
 	};
@@ -55,14 +62,13 @@
 	post_search_chain = function(){
 
 		var userid = <%=user_signed_in?? current_user.id : 0%>;
-		var userint = <%=user_signed_in?? current_user.interest : 0%>;
 
 		if (userid > 0) {
 			$.ajax({
 				url: "feeds/",
 				type: "POST",
-				data: JSON.stringify({feed: {user_id: userid, "up_vote_count":"0", "down_vote_count":"0", "feed_type":"view", 
-											"feed_content":SEARCH_CHAIN.toString(), "interest": userint}}),
+				data: JSON.stringify({feed: {"user_id": userid, "up_vote_count":"0", "down_vote_count":"0", "feed_type":"view", 
+											"feed_content":SEARCH_CHAIN.toString(), "interest": SEARCH_INEREST.toString()}}),
 				contentType:"application/json; charset=utf-8",
 				success: function(){
 					show_notification( "view feed created" );
@@ -99,7 +105,7 @@
 	$("#submit-edit").click(function(){
 		var page = $("#search-query").val().trim();
 		var userid = <%=user_signed_in?? current_user.id : 0%>;
-		var userint = <%=user_signed_in?? current_user.interest : 0%>;
+		var userint = $("#interest").val();
 		var content = $("#edit-content").val().trim();
 
 		if (page.length<1){
@@ -111,8 +117,8 @@
 			$.ajax({
 				url: "feeds/",
 				type: "POST",
-				data: JSON.stringify({feed: {user_id: userid, "up_vote_count":"0", "down_vote_count":"0", "feed_type":"submit_edit", 
-											"feed_content":JSON.stringify({"page:":page, "content":content}), "interest": userint}}),
+				data: JSON.stringify({feed: {"user_id": userid, "up_vote_count":"0", "down_vote_count":"0", "feed_type":"submit_edit", 
+											"feed_content":JSON.stringify({"page:":page, "content":content}), "interest": SEARCH_INEREST.toString()}}),
 				contentType:"application/json; charset=utf-8",
 				success: function(){
 					show_notification( "submit edit feed created" );
@@ -129,7 +135,7 @@
 	$("#request-edit").click(function(){
 		var page = $("#search-query").val().trim();
 		var userid = <%=user_signed_in?? current_user.id : 0%>;
-		var userint = <%=user_signed_in?? current_user.interest : 0%>;
+		var userint = $("#interest").val();
 
 		if (page.length<1){
 			console.log("No page to make request");
@@ -139,8 +145,8 @@
 			$.ajax({
 				url: "feeds/",
 				type: "POST",
-				data: JSON.stringify({feed: {user_id: userid, "up_vote_count":"0", "down_vote_count":"0", "feed_type":"request_edit", 
-											"feed_content":page, "interest": userint}}),
+				data: JSON.stringify({feed: {"user_id": userid, "up_vote_count":"0", "down_vote_count":"0", "feed_type":"request_edit", 
+											"feed_content": page, "interest": SEARCH_INEREST.toString()}}),
 				contentType:"application/json; charset=utf-8",
 				success: function(){
 					show_notification( "request feed created" );
@@ -162,6 +168,7 @@
 		if (SEARCH_CHAIN.length > 0){
 			post_search_chain();
 			SEARCH_CHAIN = [];
+			SEARCH_INEREST = $("#interest").val();
 		}
 		SEARCH_CHAIN = SEARCH_CHAIN.concat([search_query]);
 		search_by_name(search_query.split(' ').join('+'));

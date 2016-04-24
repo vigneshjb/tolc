@@ -12,7 +12,7 @@ class StaticController < ApplicationController
   		  "format=json&prop=info&inprop=url&titles="+params[:data]
 
   	full_url = StaticHelper.getfullurl(StaticHelper.make_request(url))
-	render :json => {"links" => StaticHelper.crawler(full_url), "page_url"=>full_url}
+	  render :json => {"links" => StaticHelper.crawler(full_url), "page_url"=>full_url}
   end
 
 end

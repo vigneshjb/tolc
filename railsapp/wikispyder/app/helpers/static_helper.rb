@@ -1,6 +1,8 @@
 require "net/http"
 require 'nokogiri'
 
+include ApplicationHelper
+
 module StaticHelper
 
 	def make_request(url)
@@ -25,7 +27,7 @@ module StaticHelper
 		required_link = []
 		all_links.delete("#")
 		all_links.each_with_index do |link, index| 
-			if (link!=nil && !link.start_with?("/wiki/File:") && link.index(':') == nil && link.start_with?("/wiki/"))
+			if (link!=nil && !link.start_with?("/wiki/File:") && link.index(':') == nil && link.index('%') == nil && link.start_with?("/wiki/"))
 				required_link.push("https://en.wikipedia.org" + link)
 			end
 		end
@@ -37,6 +39,12 @@ module StaticHelper
 		end
 
 		return retdata
+	end
+
+	def hash_interest(user)
+    	hash_to_return = {}
+	    user.interest.split(',').each {|int| hash_to_return[ApplicationHelper::INTEREST_HASH[int.to_i]] = int.to_i }
+	    return hash_to_return
 	end
 
 end
