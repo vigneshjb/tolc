@@ -5,7 +5,10 @@ class FeedsController < ApplicationController
   # GET /feeds
   # GET /feeds.json
   def index
-    @feeds = Feed.where("interest"=>current_user.interest).sort_by(&:updated_at).reverse
+    interests = current_user.interest.split(',')
+    @feeds = []
+    interests.each { |int| @feeds+=Feed.where("interest"=>int) }
+    @feeds = @feeds.sort_by(&:updated_at).reverse
   end
 
   # GET /feeds/1
