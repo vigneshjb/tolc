@@ -16,23 +16,27 @@
       <th>Feed content</th>
       <th>Interest</th>
       <th>.. </th>
-      <th colspan="5"></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
   <tbody>
     <% @feeds.each do |feed| %>
       <tr>
-        <td><%= feed.user_id %></td>
+        <td><%= ApplicationHelper::getUserName(feed.user_id) %></td>
         <td><%= feed.up_vote_count %></td>
         <td><%= feed.down_vote_count %></td>
         <td><%= feed.feed_type %></td>
-        <td><%= feed.feed_content %></td>
+        <td>
+          <% if(feed.feed_type == "view") %>
+            <%= ApplicationHelper::getWikiURLS(feed.feed_content).html_safe %>
+          <% else %>
+            <%= feed.feed_content %>
+          <% end %>
+        </td>
         <td><%= ApplicationHelper::INTEREST_HASH[feed.interest] %></td>
         <td><%= commontator_thread(feed) %></td>
-        <td><%= link_to 'Show', feed %></td>
-        <td><%= link_to 'Edit', edit_feed_path(feed) %></td>
-        <td><%= link_to 'Destroy', feed, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        
         <td><%= link_to image_tag("http://www.clker.com/cliparts/8/7/Y/H/W/e/up-arrow-circle-th.png", :size=>"30x30", :alt=>"Upvote"), "#", :onclick=>"upvote(#{feed.id})"%></td>
         <td><%= link_to image_tag("http://www.clker.com/cliparts/y/m/X/o/s/R/down-arrow-circle-md.png", :size=>"30x30", :alt=>"Downvote"), "#", :onclick=>"downvote(#{feed.id})"%></td>
       </tr>

@@ -13,4 +13,15 @@ module ApplicationHelper
     end
   end
 
+  def getUserName(id)
+    return User.find(id).name
+  end
+
+  def getWikiURLS(viewChain)
+    viewItems = viewChain.split(',')
+    urlString = ""
+    viewItems.each { |item| urlString += "<a href=\"https://en.wikipedia.org/wiki/"+item.gsub(' ','_')+"\">"+item+"</a>" +" > " }
+    urlString[0..-3]
+  end
+
 end
