@@ -16,7 +16,7 @@ module ApplicationHelper
   def getcontent(feed)
     return_html=""
     if feed.feed_type == "view"
-      return_html = "<h4><strong>" + getUserName(feed.user_id) + "</strong> has Viewed <code>" + 
+      return_html = "<h4><strong>" + getUserName(feed.user_id) + "</strong> has viewed <code>" + 
                     getViewedView(feed.feed_content) + "</code></h4> <p class='text-right'> <small>" + 
                     " This is shown because of your interest in <strong>" + 
                     ApplicationHelper::INTEREST_HASH[feed.interest] + "</strong></small></p>"
