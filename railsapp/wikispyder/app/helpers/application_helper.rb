@@ -21,7 +21,7 @@ module ApplicationHelper
                     " This is shown because of your interest in <strong>" + 
                     ApplicationHelper::INTEREST_HASH[feed.interest] + "</strong></small></p>"
     elsif feed.feed_type == "request_edit"
-      return_html = "<h4><strong>" + getUserName(feed.user_id) + "</strong> has requested an edit on the wiki<code>" + 
+      return_html = "<h4><strong>" + getUserName(feed.user_id) + "</strong> has requested an edit on the wiki <code>" + 
                     getWikiLink(feed.feed_content) + "</code></h4> <p class='text-right'> <small>" + 
                     " This is shown because of your interest in <strong>" + 
                     ApplicationHelper::INTEREST_HASH[feed.interest] + "</strong></small></p>"

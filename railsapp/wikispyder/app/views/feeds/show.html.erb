@@ -1,37 +1,21 @@
-<p>
-  <strong>User:</strong>
-  <%= @feed.user_id %>
-</p>
+<% provide(:title, "Feed Item") %>
 
-<p>
-  <strong>Up vote count:</strong>
-  <%= @feed.up_vote_count %>
-</p>
+<%= link_to 'Return to Dashboard', feeds_path %>
 
-<p>
-  <strong>Down vote count:</strong>
-  <%= @feed.down_vote_count %>
-</p>
+<div class="row">
+  <div class="col-md-6">
+    <h1>Feed Item</h1>
+  </div> 
+</div>
+<br>
 
-<p>
-  <strong>Feed type:</strong>
-  <%= @feed.feed_type %>
-</p>
+<% if @feed.feed_type == "view" %>
+  <h4><strong> <%= ApplicationHelper.getUserName(@feed.user_id) %> </strong> has Viewed <code> <%= ApplicationHelper.getViewedView(@feed.feed_content) %> </code></h4> <p class='text-right'> <small> This matches your interest in <strong> <%= ApplicationHelper::INTEREST_HASH[@feed.interest] %> </strong></small></p>
+<% elsif @feed.feed_type == "request_edit" %>
+  <h4><strong> <%= ApplicationHelper.getUserName(@feed.user_id) %> </strong> has requested an edit on the wiki <code>  <%= ApplicationHelper.getWikiLink(@feed.feed_content).html_safe %>  </code></h4> <p class='text-right'> <small> This matches your interest in <strong> <%= ApplicationHelper::INTEREST_HASH[@feed.interest] %>  </strong></small></p>
+<% else %>
+  <h4><strong> <%= ApplicationHelper.getUserName(@feed.user_id) %>  </strong> has suggested content for the wiki <code> <%= ApplicationHelper.getWikiLink(JSON.parse(@feed.feed_content)["page"]).html_safe %>  </code><br><br><pre> <%= JSON.parse(@feed.feed_content)["content"] %>  </pre></h4> <p class='text-right'> <small> This matches your interest in <strong> <%= ApplicationHelper::INTEREST_HASH[@feed.interest] %> </strong></small></p>
+<% end %>
 
-<p>
-  <strong>Feed content:</strong>
-  <%= @feed.feed_content %>
-</p>
-
-<p>
-  <strong>Interest:</strong>
-  <%= @feed.interest %>
-</p>
-
-<p>
-  <strong> Comments: </strong>
-  <%= commontator_thread(@feed) %>
-</p>
-
-<%= link_to 'Edit', edit_feed_path(@feed) %> |
-<%= link_to 'Back', feeds_path %>
+<h4> <strong> Comments: </strong> <%= commontator_thread(@feed) %> </h4>
+  

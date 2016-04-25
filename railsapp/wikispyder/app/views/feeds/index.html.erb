@@ -20,6 +20,9 @@
 			<td class="content" style="border:0px; vertical-align: middle; padding-left: 30px;" rowspan="2" data-field="state" tabindex="0">
 				<%= ApplicationHelper::getcontent(feed).html_safe %> 
 			</td> 
+			<td class="comments" style="border:0px; vertical-align: middle;" rowspan="2" data-field="state" tabindex="0">
+				<%= link_to("Join the Discussion", feed) %>
+			</td>
 		</tr>
 		<tr>
 			<td style="border:0px;" class="downvotelink">
