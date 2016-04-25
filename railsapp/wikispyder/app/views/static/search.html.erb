@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-md-2">
         <div class="field">
-            Select Interest
+            <b>SELECT INTEREST</b>
             <%= select_tag :interest, options_for_select(StaticHelper.hash_interest(current_user)) %>
         </div>
     </div>
@@ -10,8 +10,8 @@
         <div class="row">
             <div style="display: table-row">
                 <div class="field" style = "display: table-cell">
-                    Enter Search Topic
-                    <%= text_field_tag 'search-query', '', size: 102 %>
+                    <b>ENTER SEARCH TOPIC</b>
+                    <%= text_field_tag 'search-query', '', size: 97 %>
                 </div>
                 <div class="field" style = "display: table-cell">
                     <%=button_tag 'Search Wiki', :type=>'button', :id=>"run-Crawler", class: "btn btn-primary" %>
