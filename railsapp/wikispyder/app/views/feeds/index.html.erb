@@ -1,88 +1,73 @@
-<% provide(:title, "Feeds") %>
+<% provide(:title, "Dashboard") %>
 
 <div class="row">
-    <div class="col-md-6">
-        <h1>Feeds</h1>
-    </div> 
+	<div class="col-md-6">
+		<h1>Dashboard</h1>
+	</div> 
 </div>
-
-<table class="table table-hover">
-  <thead>
-    <tr>
-      <th>User</th>
-      <th>Up vote count</th>
-      <th>Down vote count</th>
-      <th>Feed type</th>
-      <th>Feed content</th>
-      <th>Interest</th>
-      <th>.. </th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @feeds.each do |feed| %>
-      <tr>
-        <td><%= ApplicationHelper::getUserName(feed.user_id) %></td>
-        <td><%= feed.up_vote_count %></td>
-        <td><%= feed.down_vote_count %></td>
-        <td><%= feed.feed_type %></td>
-        <td>
-          <% if(feed.feed_type == "view") %>
-            <%= ApplicationHelper::getWikiURLS(feed.feed_content).html_safe %>
-          <% else %>
-            <%= feed.feed_content %>
-          <% end %>
-        </td>
-        <td><%= ApplicationHelper::INTEREST_HASH[feed.interest] %></td>
-        <td><%= commontator_thread(feed) %></td>
-        
-        <td><%= link_to image_tag("http://www.clker.com/cliparts/8/7/Y/H/W/e/up-arrow-circle-th.png", :size=>"30x30", :alt=>"Upvote"), "#", :onclick=>"upvote(#{feed.id})"%></td>
-        <td><%= link_to image_tag("http://www.clker.com/cliparts/y/m/X/o/s/R/down-arrow-circle-md.png", :size=>"30x30", :alt=>"Downvote"), "#", :onclick=>"downvote(#{feed.id})"%></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
 <br>
 
-
+<table class="table" style="width: 900px; margin: 0 auto">
+  <tbody>
+	<% @feeds.each do |feed| %>
+		<tr style="border-top: 1px solid #e5e5e5">
+			<td style="border:0px;" class="upvotelink">
+				<%= link_to image_tag("http://www.clker.com/cliparts/8/7/Y/H/W/e/up-arrow-circle-th.png", :size=>"30x30", :alt=>"Upvote"), "#", :onclick=>"upvote(#{feed.id})"%>
+			</td>
+			<td style="border:0px;" class="upvotecount">
+				<%= feed.up_vote_count %>
+			</td>
+			<td class="content" style="border:0px; vertical-align: middle; padding-left: 30px;" rowspan="2" data-field="state" tabindex="0">
+				<%= ApplicationHelper::getcontent(feed).html_safe %> 
+			</td> 
+		</tr>
+		<tr>
+			<td style="border:0px;" class="downvotelink">
+				<%= link_to image_tag("http://www.clker.com/cliparts/y/m/X/o/s/R/down-arrow-circle-md.png", :size=>"30x30", :alt=>"Downvote"), "#", :onclick=>"downvote(#{feed.id})"%>
+			</td>
+			<td style="border:0px;" class="downvotecount">
+				<%= feed.down_vote_count %>
+			</td>
+		</tr>
+	<% end %>
+  </tbody>
+</table>
 
 <%= javascript_tag do %>
 // to up vote a feed item
   upvote = function(id){
-    var userid = <%=user_signed_in?? current_user.id : 0%>;
-    if (userid > 0) {
-      $.ajax({
-        url: "feeds/"+id+"/upvote",
-        type: "GET",
-        success: function(){
-          console.log( "feed upvoted" );
-          location.reload();
-        }
-      });
-    }
-    else {
-      console.log("upvote feed cannot be done because user is not logged in");
-    }
+	var userid = <%=user_signed_in?? current_user.id : 0%>;
+	if (userid > 0) {
+	  $.ajax({
+		url: "feeds/"+id+"/upvote",
+		type: "GET",
+		success: function(){
+		  console.log( "feed upvoted" );
+		  location.reload();
+		}
+	  });
+	}
+	else {
+	  console.log("upvote feed cannot be done because user is not logged in");
+	}
   }
 
   // to down vote a feed item
   downvote = function(id){
-    var userid = <%=user_signed_in?? current_user.id : 0%>;
-    if (userid > 0) {
-      $.ajax({
-        url: "feeds/"+id+"/downvote",
-        type: "GET",
-        success: function(){
-          console.log( "feed downvoted" );
-          location.reload();
-        }
-      });
-    }
-    else {
-      console.log("downvote feed cannot be done because user is not logged in");
-    }
+	var userid = <%=user_signed_in?? current_user.id : 0%>;
+	if (userid > 0) {
+	  $.ajax({
+		url: "feeds/"+id+"/downvote",
+		type: "GET",
+		success: function(){
+		  console.log( "feed downvoted" );
+		  location.reload();
+		}
+	  });
+	}
+	else {
+	  console.log("downvote feed cannot be done because user is not logged in");
+	}
   }
 
 <% end %>

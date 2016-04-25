@@ -130,7 +130,7 @@
 				url: "feeds/",
 				type: "POST",
 				data: JSON.stringify({feed: {"user_id": userid, "up_vote_count":"0", "down_vote_count":"0", "feed_type":"submit_edit", 
-											"feed_content":JSON.stringify({"page:":page, "content":content}), "interest": userint}}),
+											"feed_content":JSON.stringify({"page":page, "content":content}), "interest": userint}}),
 				contentType:"application/json; charset=utf-8",
 				success: function(){
 					show_notification( "submit edit feed created" );
