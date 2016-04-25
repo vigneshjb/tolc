@@ -33,7 +33,7 @@ module StaticHelper
 		end
 
 		if(required_link.length()>80) 
-			retdata=required_link[50..100] 
+			retdata=required_link[50..75] 
 		else 
 			retdata=required_link
 		end
