@@ -33,8 +33,8 @@
         <td><%= link_to 'Show', feed %></td>
         <td><%= link_to 'Edit', edit_feed_path(feed) %></td>
         <td><%= link_to 'Destroy', feed, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to 'Upvote Feed',"#", :onclick=>"upvote(#{feed.id})"%>
-        <td><%= link_to 'Downvote Feed',"#", :onclick=>"downvote(#{feed.id})"%>
+        <td><%= link_to image_tag("http://www.clker.com/cliparts/8/7/Y/H/W/e/up-arrow-circle-th.png", :size=>"30x30", :alt=>"Upvote"), "#", :onclick=>"upvote(#{feed.id})"%></td>
+        <td><%= link_to image_tag("http://www.clker.com/cliparts/y/m/X/o/s/R/down-arrow-circle-md.png", :size=>"30x30", :alt=>"Downvote"), "#", :onclick=>"downvote(#{feed.id})"%></td>
       </tr>
     <% end %>
   </tbody>
